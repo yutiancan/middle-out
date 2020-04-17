@@ -58,11 +58,11 @@ GBENCH_OBJECTS = gbench/perf.cpp scalar.cpp
 GBENCH_TARGET = perf
 
 bench:
-	$(CC) -std=c++11 -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) $(CC_GBENCH_FLAGS) -march=native $(LD_GBENCH_FLAGS)
+	$(CC) -std=c++11 -Wc++11-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) $(CC_GBENCH_FLAGS) -march=native $(LD_GBENCH_FLAGS)
 	./$(GBENCH_TARGET)
 
 bench-avx512:
-	$(CC) -std=c++11 -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) avx512.cpp $(CC_GBENCH_FLAGS) -march=skylake-avx512 $(LD_GBENCH_FLAGS) -D USE_AVX512
+	$(CC) -std=c++11 -Wc++11-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) avx512.cpp $(CC_GBENCH_FLAGS) -march=skylake-avx512 $(LD_GBENCH_FLAGS) -D USE_AVX512
 	./$(GBENCH_TARGET)
 
 #aliases for bench
