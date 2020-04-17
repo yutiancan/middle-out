@@ -52,7 +52,7 @@ clean-lib:
 ###
 #	COMPILE AND RUN GOOGLE BENCHMARK TESTS
 ###
-CC_GBENCH_FLAGS = -O3
+CC_GBENCH_FLAGS = -O3 -g -Wall -MMD -std=c++11
 LD_GBENCH_FLAGS = -l gtest -l benchmark -l pthread
 
 GBENCH_OBJECTS = gbench/perf.cpp scalar.cpp
