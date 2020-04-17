@@ -3,7 +3,7 @@ CC = g++
 ###
 #	COMPILE AND RUN TESTS
 ###
-CCFLAGS = -g -Wall -MMD -std=c++11
+CCFLAGS = -g -Wall -MMD -std=c++14
 GOOGLE_TEST_LIB = gtest
 CC_TEST_FLAGS = -O2 -g -Wall -Wno-strict-aliasing -fsanitize=address -D_GLIBCXX_DEBUG_PEDANTIC
 LD_TEST_FLAGS = -l $(GOOGLE_TEST_LIB) -l pthread -l gtest_main
@@ -14,11 +14,11 @@ TEST_TARGET = test
 BUILD_DIR = dist
 
 test:
-	$(CC) -std=c++11 -o $(TEST_TARGET) $(TEST_OBJECTS) $(CC_TEST_FLAGS)  $(LD_TEST_FLAGS) \
+	$(CC) -std=c++14 -o $(TEST_TARGET) $(TEST_OBJECTS) $(CC_TEST_FLAGS)  $(LD_TEST_FLAGS) \
 	&& ./$(TEST_TARGET)
 
 test-avx512:
-	$(CC) -std=c++11 -o $(TEST_TARGET) $(TEST_OBJECTS) avx512.cpp $(CC_TEST_FLAGS) \
+	$(CC) -std=c++14 -o $(TEST_TARGET) $(TEST_OBJECTS) avx512.cpp $(CC_TEST_FLAGS) \
 	-march=skylake-avx512 $(LD_TEST_FLAGS) -D USE_AVX512 && ./$(TEST_TARGET)
 
 ###
@@ -28,14 +28,14 @@ CC_LIB_FLAGS = -c -O3 -s
 
 lib:
 	mkdir -p $(BUILD_DIR)
-	$(CC) -std=c++11 $(CC_LIB_FLAGS) middleout.cpp scalar.cpp helpers.hpp -march=native
+	$(CC) -std=c++14 $(CC_LIB_FLAGS) middleout.cpp scalar.cpp helpers.hpp -march=native
 	ar -rcs libmiddleout.a middleout.o scalar.o helpers.hpp.gch
 	mv libmiddleout.a $(BUILD_DIR)/
 	cp middleout.hpp $(BUILD_DIR)/
 
 lib-avx512:
 	mkdir -p $(BUILD_DIR)
-	$(CC) -std=c++11 $(CC_LIB_FLAGS) middleout.cpp avx512.cpp helpers.hpp -march=skylake-avx512 -D USE_AVX512
+	$(CC) -std=c++14 $(CC_LIB_FLAGS) middleout.cpp avx512.cpp helpers.hpp -march=skylake-avx512 -D USE_AVX512
 	ar -rcs libmiddleout-avx512.a middleout.o avx512.o helpers.hpp.gch
 	mv libmiddleout-$(BUILD_DIR).a $(BUILD_DIR)/
 	cp middleout.hpp $(BUILD_DIR)/
@@ -52,18 +52,18 @@ clean-lib:
 ###
 #	COMPILE AND RUN GOOGLE BENCHMARK TESTS
 ###
-CC_GBENCH_FLAGS = -O3 -g -Wall -MMD -std=c++11
+CC_GBENCH_FLAGS = -O3 -g -Wall -MMD -std=c++14
 LD_GBENCH_FLAGS = -l gtest -l benchmark -l pthread
 
 GBENCH_OBJECTS = gbench/perf.cpp scalar.cpp
 GBENCH_TARGET = perf
 
 bench:
-	$(CC) -std=c++11 -Wc++11-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) $(CC_GBENCH_FLAGS) -march=native $(LD_GBENCH_FLAGS)
+	$(CC) -std=c++14 -Wc++14-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) $(CC_GBENCH_FLAGS) -march=native $(LD_GBENCH_FLAGS)
 	./$(GBENCH_TARGET)
 
 bench-avx512:
-	$(CC) -std=c++11 -Wc++11-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) avx512.cpp $(CC_GBENCH_FLAGS) -march=skylake-avx512 $(LD_GBENCH_FLAGS) -D USE_AVX512
+	$(CC) -std=c++14 -Wc++14-compat -o $(GBENCH_TARGET) $(GBENCH_OBJECTS) avx512.cpp $(CC_GBENCH_FLAGS) -march=skylake-avx512 $(LD_GBENCH_FLAGS) -D USE_AVX512
 	./$(GBENCH_TARGET)
 
 #aliases for bench
