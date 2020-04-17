@@ -1,5 +1,5 @@
 CPP = g++
-CPP_ARGS = -O3 -march=native -o demo
+CPP_ARGS = -O3 -std=c++14 -march=native -o demo
 TARGET = example.cpp
 
 HAVE_AVX512 = $(shell grep avx512 /proc/cpuinfo)
