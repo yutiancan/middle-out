@@ -45,6 +45,12 @@ make lib-avx512
 
 ### Compile and Run Tests
 ```
+apt update
+apt isntall libgtest-dev
+cd /usr/src/gtest/
+cmake -DBUILD_SHARED_LIBS=ON
+make
+cp *.so /usr/lib
 make test
 ```
 or
@@ -99,7 +105,7 @@ install gtest
 apt install libgtest-dev build-essential cmake
 cd /usr/src/gtest
 cmake .
-make -j4
+make
 cp *.a /usr/lib
 ```
 
@@ -119,7 +125,7 @@ $ mkdir build && cd build
 $ cmake ../ -DCMAKE_BUILD_TYPE=Release
 # Build the library.
 # Use make -j<number_of_parallel_jobs> to speed up the build process, e.g. make -j8 .
-$ make -j 8
+$ make
 
 $ make install
 ```
